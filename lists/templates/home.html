@@ -1,0 +1,32 @@
+{% load static %}
+<html>
+	<head>
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<title>Lista de Tarefas com Prioridade</title>
+	</head>
+	<body>
+
+			<div class="container">
+				<div class="row justify-content-md-center">
+					<div class="col-md-4 col-offset-4">
+						<h1>Lista de Tarefas</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group">
+							<form method="POST">
+								<input class="form-control" name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
+								{% csrf_token %}
+							</form>
+					</div>		
+					<table class="table" id="id_list_table">
+						{% for item in items %}
+						<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+	</body>
+</html>

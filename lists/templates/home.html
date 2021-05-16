@@ -14,19 +14,60 @@
 						<h1>Lista de Tarefas</h1>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group">
-							<form method="POST">
-								<input class="form-control" name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
-								{% csrf_token %}
+				<div class="row justify-content-md-center">
+				
+						<div class="form-group" style="margin-top: 50px">
+							  <p><b>Item</b> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  <b>Prioridade</b> </p>
+							<form method="POST">		
+								 {% csrf_token %}
+
+
+								 <input name="item_text" id="item_text" placeholder="Adicione o item" style="margin-right:20px" required/>
+								
+								 <label class="radio-inline" style="margin-left:10px">
+							      <input type="radio" id="ds_prio" value="Alta" name="ds_prio" checked>Alta
+							     </label>
+							     <label class="radio-inline" style="margin-left:10px">
+							      <input type="radio" id="ds_prio" value="Média" name="ds_prio">Média
+							     </label>
+							     <label class="radio-inline" style="margin-left:10px; margin-right: 10px">
+							      <input type="radio" id="ds_prio" value="Baixa"  name="ds_prio">Baixa
+							     </label>
+
+
+							
+								<input class="btn btn-success" type="submit" value="Salvar">
 							</form>
-					</div>		
-					<table class="table" id="id_list_table">
-						{% for item in items %}
-						<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
-						{% endfor %}
-					</table>
+						
+						</div>	
+				
 				</div>
-			</div>
+								<div class="row justify-content-md-center">	
+									<table class="table table-striped table-dark" id="id_list_table">
+										<thead>
+										    <tr>
+										      <th scope="col">ID</th>
+										      <th scope="col">Item</th>
+										      <th scope="col">Prioridade</th>
+
+										    </tr>
+									    </thead>
+										{% for item in items %}
+										<tr>
+											<td>
+												{{ forloop.counter }}
+											</td>	
+											<td>
+												 {{ item.text }}
+											</td>
+											<td>
+												{{ item.ds_prio }}
+											</td>
+										</tr>
+										{% endfor %}
+									</table>
+								</div>
+				
+			</div>	
 	</body>
 </html>

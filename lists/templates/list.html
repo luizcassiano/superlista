@@ -18,7 +18,7 @@
 
         <div class="form-group" style="margin-top: 50px">
             <p><b>Item</b> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  <b>Prioridade</b> </p>
-            <form method="POST" action="/lists/new">
+            <form method="POST" action="/lists/{{list.id}}/add_item">
                 {% csrf_token %}
 
 
@@ -52,7 +52,7 @@
 
             </tr>
             </thead>
-            {% for item in items %}
+            {% for item in list.item_set.all %}
             <tr>
                 <td>
                     {{ forloop.counter }}

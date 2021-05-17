@@ -18,20 +18,20 @@
 				
 						<div class="form-group" style="margin-top: 50px">
 							  <p><b>Item</b> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  <b>Prioridade</b> </p>
-							<form method="POST">		
+							<form method="POST" action="/">
 								 {% csrf_token %}
 
 
-								 <input name="item_text" id="item_text" placeholder="Adicione o item" style="margin-right:20px" required/>
+								 <input name="item_text" id="id_new_item" placeholder="Adicione o item" style="margin-right:20px" required/>
 								
 								 <label class="radio-inline" style="margin-left:10px">
-							      <input type="radio" id="ds_prio" value="Alta" name="ds_prio" checked>Alta
+							      <input type="radio" id="ds_prio" name="ds_prioridade" value="Alta"  checked>Alta
 							     </label>
 							     <label class="radio-inline" style="margin-left:10px">
-							      <input type="radio" id="ds_prio" value="Média" name="ds_prio">Média
+							      <input type="radio" id="ds_prio" name="ds_prioridade" value="Média" >Média
 							     </label>
 							     <label class="radio-inline" style="margin-left:10px; margin-right: 10px">
-							      <input type="radio" id="ds_prio" value="Baixa"  name="ds_prio">Baixa
+							      <input type="radio" id="ds_prio" name="ds_prioridade" value="Baixa"  >Baixa
 							     </label>
 
 

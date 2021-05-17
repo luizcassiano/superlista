@@ -13,15 +13,42 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
 
+    def test_only_saves_items_when_necessary(self):
+        self.client.get('/')
+        self.assertEquals(Item.objects.count(), 0)
+
     def test_can_save_a_POST_request(self):
-        response = self.client.post('/', data={'item_text': 'A new list item'})
+        self.client.post('/', data={'item_text': 'A new list item', 'ds_prioridade': 'A new priority'})
 
         self.assertEquals(Item.objects.count(), 1)
         new_item = Item.objects.first()
         self.assertEquals(new_item.text, 'A new list item')
 
-        self.assertIn('A new list item', response.content.decode())
-        self.assertTemplateUsed(response, 'home.html')
+    def test_redirects_after_POST(self):
+        response = self.client.post('/', data={'item_text': 'A new list item','ds_prioridade': 'A new priority'})
+
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(response['location'], '/lists/the-only-list-in-the-world/')
+
+    def test_displays_all_list_itens(self):
+        Item.objects.create(text='itemey 1')
+        Item.objects.create(text='itemey 2')
+
+        response = self.client.get('/')
+
+        self.assertIn('itemey 1', response.content.decode())
+        self.assertIn('itemey 2', response.content.decode())
+
+
+class ListViewTest(TestCase):
+    def test_displays_all_list_itens(self):
+        Item.objects.create(text='itemey 1')
+        Item.objects.create(text='itemey 2')
+
+        response = self.client.get('/lists/the-only-list-in-the-world/')
+
+        self.assertContains(response, 'itemey 1')
+        self.assertContains(response, 'itemey 2')
 
 
 from lists.models import Item
@@ -32,10 +59,12 @@ class ItemModelTest(TestCase):
     def test_saving_and_retriving_items(self):
         first_item = Item()
         first_item.text = 'The first (ever) list item'
+        first_item.ds_prio = 'Alta'
         first_item.save()
 
         second_item = Item()
         second_item.text = 'Item the second'
+        first_item.ds_prio = 'Média'
         second_item.save()
 
         saved_items = Item.objects.all()

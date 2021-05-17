@@ -50,17 +50,11 @@ class NewVsitorTest(LiveServerTestCase):
             'Enter a to-do item'
         )
 
-        radiobox = self.browser.find_element_by_id('ds_prio')
-        self.assertEqual(
-            radiobox.get_attribute('placeholder'),
-            'Enter a priority'
-        )
-
         # Ela digita "Buy peacock feathers" (Comprar penas de pavão)
         # em uma nova caixa de texto (o hobby de Edith é fazer iscas
         # para pesca com fly)
 
-        inputbox.send_keys('Buy peacock feathers')
+        inputbox.send_keys('Buy peacock feathers', 'Alta')
 
         # Quando ela tecla enter, a página é atualizada, e agora
         # a página lista "1 - Buy peacock feathers" como um item em
